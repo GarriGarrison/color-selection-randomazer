@@ -85,12 +85,6 @@ const App: FC = (): ReactElement => {
     setColums(statusUpdate)
   }
 
-  //   const handleClickHexColor = async (hex: string) => {
-  //     console.log('hex')
-  //     console.log(await navigator.clipboard.writeText(hex))
-  //     // document.location.hash = hex
-  //   }
-
   const colorColums = () => {
     return colums.map((colum: ColorColum, i: number) => <ColorColum key={i} setting={colum} onclick={handleClick} />)
   }
