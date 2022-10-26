@@ -19,7 +19,6 @@ const App: FC = (): ReactElement => {
       const color = colors[i]
       columsInit.push({ index: i, background: color, isFix: false })
     }
-    console.log(columsInit)
   } else {
     for (let i = 0; i < COLUMS_COUNT; i++) {
       const color = generateRandomColor()
@@ -29,7 +28,7 @@ const App: FC = (): ReactElement => {
 
   const [update, setUpdate] = useState(false)
   const [colums, setColums] = useState<ColorColum[]>(columsInit)
-  const [hashColor, setHashColor] = useState('')
+  const [_, setHashColor] = useState('')
 
   useEffect(() => {
     document.addEventListener('keydown', (event: KeyboardEvent) => {
@@ -37,42 +36,42 @@ const App: FC = (): ReactElement => {
         setUpdate(prev => !prev)
       }
     })
-
-    setTimeout(() => {
-      setColums(columsInit)
-    }, 1)
   }, [])
 
   useEffect(() => {
     /**
      * Обновление цвета колонок
      */
-    const columsUpdate: ColorColum[] = []
-    for (let i = 0; i < COLUMS_COUNT; i++) {
-      let color = '#FFFFFF'
-      colums[i].isFix ? (color = colums[i].background) : (color = generateRandomColor())
-      columsUpdate.push({ index: i, background: color, isFix: colums[i].isFix })
-    }
-    setColums(columsUpdate)
+    if (update) {
+      const columsUpdate: ColorColum[] = []
+      for (let i = 0; i < COLUMS_COUNT; i++) {
+        let color = '#FFFFFF'
+        colums[i].isFix ? (color = colums[i].background) : (color = generateRandomColor())
+        columsUpdate.push({ index: i, background: color, isFix: colums[i].isFix })
+      }
+      setColums(columsUpdate)
 
-    /**
-     * Сбор цветов колонок для Hash
-     */
-    let hashColorNew = ''
-    for (let i = 0; i < COLUMS_COUNT; i++) {
-      const hashColorFormated = colums[i].background.substring(1)
-      hashColorNew += hashColorFormated + '-'
-    }
-    hashColorNew = hashColorNew.slice(0, -1)
-    setHashColor(hashColorNew)
+      /**
+       * Сбор цветов колонок для Hash
+       */
+      let hashColorNew = ''
+      for (let i = 0; i < COLUMS_COUNT; i++) {
+        const hashColorFormated = columsUpdate[i].background.substring(1)
+        hashColorNew += hashColorFormated + '-'
+      }
+      hashColorNew = hashColorNew.slice(0, -1)
+      setHashColor(hashColorNew)
 
-    document.location.hash = hashColorNew
+      document.location.hash = hashColorNew
+    }
   }, [update])
 
-  const handleClick = (index: number) => {
+  const handleClick = (event: any, index: number) => {
     /**
      * Обновление состояния фиксации цвета у колонки
      */
+    event.target.blur()
+
     const statusUpdate = []
 
     for (let i = 0; i < COLUMS_COUNT; i++) {

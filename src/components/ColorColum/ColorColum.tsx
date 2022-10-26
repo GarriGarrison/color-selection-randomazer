@@ -47,16 +47,11 @@ import textColor from '@/helpers/textColor.help'
 
 // const ColorColum: FC<ColorColumProps> = ({ colorBackground, onclick }): ReactElement => {
 const ColorColum: FC<ColorColumProps> = ({ setting, onclick }): ReactElement => {
-  // const [isLocked, setIsLocked] = useState(false)
-
   return (
     <div className={styles.container} style={{ background: setting.background }}>
       {/* <h2 style={{ color: txtColor }} onClick={() => handleClickHexColor(txtColor)}> */}
       <h2>{setting.background}</h2>
-      {/* <button onClick={event => onclick(event)}> */}
-      <button onClick={() => onclick(setting.index)}>
-        {/* fff */}
-        {/* {isLocked ? <img src="images/lock.svg" alt="замок закрыт" width="35px" /> : <img src="images/unlock.svg" alt="замок открыт" width="35px" />} */}
+      <button onClick={event => onclick(event, setting.index)}>
         {setting.isFix ? <img src="images/lock.svg" alt="замок закрыт" width="35px" /> : <img src="images/unlock.svg" alt="замок открыт" width="35px" />}
       </button>
     </div>
