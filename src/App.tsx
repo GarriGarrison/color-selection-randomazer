@@ -1,5 +1,5 @@
 // Core
-import { FC, ReactElement, useState, useEffect } from 'react'
+import { FC, ReactElement, useState, useEffect, MouseEvent } from 'react'
 
 // Common
 import ColorColum from './components/ColorColum'
@@ -66,11 +66,11 @@ const App: FC = (): ReactElement => {
     }
   }, [update])
 
-  const handleClick = (event: any, index: number) => {
+  const handleClick = (event: MouseEvent, index: number) => {
     /**
      * Обновление состояния фиксации цвета у колонки
      */
-    event.target.blur()
+    ;(event.target as HTMLButtonElement).blur() //
 
     const statusUpdate = []
 
